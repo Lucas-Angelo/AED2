@@ -3,6 +3,8 @@
 bin/
 obj/
 
+*.cbp
+
 # Prerequisites
 *.d
 
