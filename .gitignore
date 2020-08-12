@@ -42,3 +42,13 @@ obj/
 /Lab/Atividades/Java/Introdution/MyName/build/
 /Lab/Atividades/Java/Introdution/exercicio01/nbproject/private/
 /Lab/Atividades/Java/Introdution/exercicio01/build/
+
+
+**/nbproject/private/
+**/nbproject/Makefile-*.mk
+**/nbproject/Package-*.bash
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
