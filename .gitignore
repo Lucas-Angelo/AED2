@@ -37,3 +37,8 @@ obj/
 *.exe
 *.out
 *.app
+/Lab/Atividades/Java/MyName/nbproject/private/
+/Lab/Atividades/Java/Introdution/MyName/nbproject/private/
+/Lab/Atividades/Java/Introdution/MyName/build/
+/Lab/Atividades/Java/Introdution/exercicio01/nbproject/private/
+/Lab/Atividades/Java/Introdution/exercicio01/build/
