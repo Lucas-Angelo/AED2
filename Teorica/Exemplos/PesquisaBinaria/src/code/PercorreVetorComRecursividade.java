@@ -14,6 +14,7 @@ import java.util.Arrays;
  */
 public class PercorreVetorComRecursividade {
 
+	public static int cont=0;
 	/**
 	 * @param args
 	 * @throws IOException 
@@ -45,8 +46,10 @@ public class PercorreVetorComRecursividade {
 
 		if (menor > maior) // Chegou a fim e não achou
 			return -1;
-		else if(numDoMeio == procurado) // Achou
+		else if(numDoMeio == procurado) {  // Achou
 			return meio;
+			cont++;
+		}
 		else if (numDoMeio < procurado)
 			return detectarPosicaoPorBuscaBinaria(vetor, meio+1, maior, procurado); // Caso esteja acima
 		else
