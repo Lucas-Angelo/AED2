@@ -10,4 +10,39 @@ public class Fila {
 		frente = sentinela;
 		tras = sentinela;
 	}
+	
+	public boolean filaVazia () {
+		
+		boolean resp;
+		
+		if(frente == tras)
+			resp = true;
+		else
+			resp = false;
+		
+		return resp;
+	}
+	
+	public void enfileirar(Inteiro novo) {
+		
+		Celula novaCelula;
+		
+		novaCelula = new Celula(novo);
+		tras.proximo = novaCelula;
+		tras = novaCelula; // ou: tras = tras.proximo;
+		
+	}
+	
+	public Inteiro desenfileirar() {
+	
+		Celula aux;
+		
+		aux = frente.proximo;
+		frente.proximo = aux.proximo;
+		aux.proximo = null;
+		if(aux==tras)
+			tras = frente;
+		return (aux.item);
+	}
+	
 }
