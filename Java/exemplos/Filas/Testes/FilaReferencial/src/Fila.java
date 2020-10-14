@@ -45,4 +45,16 @@ public class Fila {
 		return (aux.item);
 	}
 	
+	public void imprimir() {
+		
+		Celula aux;
+		
+		aux = frente.proximo;
+		while (aux != null) {
+		
+			aux.item.imprimir();
+			aux = aux.proximo;
+		}
+	}
+	
 }
