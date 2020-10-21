@@ -17,9 +17,10 @@ public class Pilha {
 	}
 
 	public Inteiro desempilhar() {
-		Celula aux = topo;
+		Celula aux;
 		Inteiro i = null;
 		if (!pilhaVazia()) {
+			aux = topo;
 			topo = topo.proximo;
 
 			aux.proximo = null;
@@ -35,6 +36,18 @@ public class Pilha {
 			res = true;
 
 		return res;
+	}
+
+	public void imprimir() {
+		Celula aux;
+
+		aux = this.topo;
+		while (aux.proximo != null) {
+
+			System.out.println(aux.item.getDado() + " ");
+
+			aux = aux.proximo;
+		}
 	}
 
 }
