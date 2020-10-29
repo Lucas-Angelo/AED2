@@ -20,8 +20,6 @@ public class parenteses {
 		Pilha minhaPilha[] = new Pilha[100];
 		Caractere aux;
 
-		int abre = 0, fecha = 0;
-
 		String str = new String();
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		int numPilha = 0;
@@ -34,15 +32,26 @@ public class parenteses {
 
 				for (int i = 0; i < str.trim().length(); i++) {
 
-					aux = new Caractere(str.charAt(i));
-					minhaPilha[numPilha].empilhar(aux);
+					if (str.charAt(i) == '(') { // Nao pode colocar um abrir no final
+						aux = new Caractere(str.charAt(i));
+						minhaPilha[numPilha].empilhar(aux);
+					}
+
+					if (str.charAt(i) == ')') {
+						Caractere temp;
+						temp = minhaPilha[numPilha].desempilhar();
+
+						if (temp != null) {
+							if (temp.getAlphaNumerico() == ')') {
+								aux = new Caractere(str.charAt(i));
+								minhaPilha[numPilha].empilhar(aux);
+							}
+						} else {
+							minhaPilha[numPilha].desempilhar();
+						}
+					}
 
 				}
-
-//				if (str.charAt(0) == ')')
-//					abre += 2;
-//				if ((str.charAt(str.length() - 1)) == '(')
-//					abre += 4;
 
 				numPilha++;
 			}
@@ -50,16 +59,12 @@ public class parenteses {
 		} while (!str.equals("FIM"));
 
 		for (int i = 0; i < numPilha; i++) {
-			abre += minhaPilha[i].verificarQuantidade('(');
-			fecha += minhaPilha[i].verificarQuantidade(')');
 
-			if (abre == fecha && abre >= 0 && fecha >= 0)
+			if (minhaPilha[i].getFilaTamanho() == 0)
 				System.out.println("correto");
 			else
 				System.out.println("incorreto");
 
-			abre = 0;
-			fecha = 0;
 		}
 
 	}
@@ -111,6 +116,7 @@ class Pilha {
 
 	private Celula fundo;
 	private Celula topo;
+	private int tamanho;
 
 	Pilha() {
 
@@ -118,6 +124,7 @@ class Pilha {
 
 		fundo = aux;
 		topo = aux;
+		tamanho = 0;
 	}
 
 	public void empilhar(Caractere alphaNumerico) {
@@ -127,6 +134,8 @@ class Pilha {
 		aux.item = alphaNumerico;
 
 		topo = aux;
+
+		tamanho++;
 	}
 
 	public Caractere desempilhar() {
@@ -138,6 +147,7 @@ class Pilha {
 			topo = topo.proximo;
 
 		}
+		tamanho--;
 		return (aux);
 	}
 
@@ -148,30 +158,31 @@ class Pilha {
 			return (false);
 	}
 
-	public int verificarQuantidade(char caractere) {
-		int res = 0;
+	public void imprimir() {
+		Pilha invertida = new Pilha();
 		Celula aux;
 
 		aux = topo;
+		while (aux.proximo != null) {
 
-		while (aux.proximo != fundo.proximo) {
-
-			if (aux.proximo == fundo) {
-				if (aux.item.getAlphaNumerico() == ')') // Nao se pode comecar uma equacao fechando
-					res += -1000;
-			} else if (aux == topo) {
-				if (aux.item.getAlphaNumerico() == '(') // Nem se pode finalizar uma equacao abrindo
-					res += -1000;
-			}
-
-			if (aux.item.getAlphaNumerico() == caractere)
-				res++;
+			invertida.empilhar(aux.item);
 
 			aux = aux.proximo;
 		}
 
-		return res;
+		aux = invertida.topo;
+		while (aux.proximo != null) {
+
+			System.out.print(aux.item.getAlphaNumerico() + "");
+
+			aux = aux.proximo;
+		}
+		System.out.println("");
+
 	}
 
+	public int getFilaTamanho() {
+		return this.tamanho;
+	}
 
 }
