@@ -100,4 +100,12 @@ public class Lista {
 
 	}
 
+	public void quest() throws Exception {
+		int i;
+
+		for (i = 1; i < 4; i++) {
+			inserir(remover(i), 4 - i);
+		}
+	}
+
 }
