@@ -10,77 +10,74 @@ public class Lista {
 		tamanho = 0;
 	}
 
-	public void inserir(Inteiro elemento, int posicao) throws Exception {
+	public void inserir(Inteiro novoItem, int posicao) throws Exception {
 
-		Celula aux, anterior;
+		Celula aux;
 		Celula nova;
-		int qtd;
 
-		if (posicao <= tamanho) {
+		if (posicao >= 0 && posicao <= tamanho) {
+
 			aux = primeiro.proximo;
-			anterior = primeiro;
-
-			for (qtd = 0; qtd < posicao; qtd++) {
+			for (int qtd = 0; qtd < posicao; qtd++)
 				aux = aux.proximo;
-				anterior = anterior.proximo;
-			}
 
-			nova = new Celula(elemento);
-			anterior.proximo = nova;
-			nova.proximo = aux;
+			nova = new Celula(novoItem);
 
-			// if (posicao == tamanho)
-			// if (anterior == ultimo)
-			if (aux == null) {
+			if (posicao != tamanho) {
+				nova.proximo = aux;
+				nova.anterior = aux.anterior;
+				aux.anterior = nova;
+				nova.anterior.proximo = nova;
+			} else {
+				nova.anterior = ultimo;
+				ultimo.proximo = nova;
 				ultimo = ultimo.proximo;
-				// ultimo = nova;
 			}
+
 			tamanho++;
 
 		} else {
-			new Exception("Erro ao tentar inserir na lista: posição inválida.");
+			throw new Exception("Erro ao tentar inserir na lista: posicao invalida");
 		}
 
 	}
 
 	public Inteiro remover(int posicao) throws Exception {
 
-		Celula aux, anterior;
-		int qtd;
-		Inteiro retirado = null;
+		Celula aux;
+		Inteiro elemento;
 
 		if (!listaVazia()) {
 
-			if (posicao < tamanho) {
-
+			if (posicao >= 0 && posicao < tamanho) {
 				aux = primeiro.proximo;
-				anterior = primeiro;
 
-				for (qtd = 0; qtd < posicao; qtd++) {
+				for (int qtd = 0; qtd < posicao; qtd++)
 					aux = aux.proximo;
-					anterior = anterior.proximo;
-				}
 
-				anterior.proximo = aux.proximo;
+				aux.anterior.proximo = aux.proximo;
+
 				tamanho--;
 
-				if (posicao == tamanho) {
-					ultimo = anterior;
-				}
+				if (posicao == tamanho)
+					ultimo = aux.anterior;
+				else
+					aux.proximo.anterior = aux.anterior;
 
+				aux.anterior = null;
 				aux.proximo = null;
 
-				retirado = aux.item;
+				elemento = aux.item;
 
 			} else {
-				new Exception("Erro ao tentar remover da lista: posição inválida!");
+				throw new Exception("Erro ao tentar retirar elemento da lista: posicao insvalida");
 			}
 
 		} else {
-			new Exception("Erro ao tentar remover da lista: lista vazia!");
+			throw new Exception("Erro ao tentar retirar elemento da lista: a lista esta vazia");
 		}
 
-		return retirado;
+		return elemento;
 
 	}
 
